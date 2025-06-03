@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Инструкции за Уравнения!</title>
   <style>
     body {
@@ -13,20 +13,18 @@
       padding: 0;
       overflow-x: hidden;
     }
-
     .container {
       max-width: 800px;
       margin: auto;
       padding: 40px 20px;
       animation: fadeIn 2s ease;
     }
-
     h1 {
       font-size: 3em;
       text-align: center;
       color: #130f40;
+      margin-bottom: 0.3em;
     }
-
     .step {
       background: white;
       border-radius: 16px;
@@ -36,12 +34,11 @@
       animation: slideUp 1s ease forwards;
       opacity: 0;
     }
-
     .step:nth-child(2) { animation-delay: 0.5s; }
     .step:nth-child(3) { animation-delay: 1s; }
     .step:nth-child(4) { animation-delay: 1.5s; }
     .step:nth-child(5) { animation-delay: 2s; }
-
+    .step:nth-child(6) { animation-delay: 2.5s; }
     a.button {
       display: inline-block;
       background-color: #0984e3;
@@ -53,11 +50,9 @@
       margin-top: 20px;
       transition: background 0.3s ease;
     }
-
     a.button:hover {
       background-color: #74b9ff;
     }
-
     .credits {
       text-align: center;
       font-size: 1.1em;
@@ -65,15 +60,88 @@
       margin-top: 40px;
       animation: fadeIn 2s ease;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes slideUp {
       to { opacity: 1; transform: translateY(0); }
       from { opacity: 0; transform: translateY(40px); }
+    }
+    .app-window {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 500px;
+      margin: 40px auto 20px auto;
+      overflow: hidden;
+      animation: fadeIn 1.5s ease forwards;
+      opacity: 0;
+      border: 2px solid #2980b9;
+    }
+    .app-header {
+      background: #2980b9;
+      padding: 10px 15px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.4em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .app-header .buttons {
+      display: flex;
+      gap: 8px;
+    }
+    .circle-btn {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #e74c3c;
+      box-shadow: 0 0 8px #e74c3c;
+      animation: pulse 2s infinite;
+    }
+    .circle-btn.yellow {
+      background-color: #f1c40f;
+      box-shadow: 0 0 8px #f1c40f;
+      animation-delay: 0.3s;
+    }
+    .circle-btn.green {
+      background-color: #2ecc71;
+      box-shadow: 0 0 8px #2ecc71;
+      animation-delay: 0.6s;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .app-content {
+      padding: 30px;
+      font-size: 2em;
+      text-align: center;
+      color: #34495e;
+      font-weight: 700;
+      user-select: none;
+      min-height: 120px;
+      line-height: 1.4;
+      font-family: 'Consolas', monospace;
+    }
+    .app-button {
+      margin-top: 20px;
+      font-size: 1em;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      background-color: #2980b9;
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .app-button:hover {
+      background-color: #3498db;
     }
   </style>
 </head>
@@ -104,9 +172,62 @@
       <p>Кликнете на “Покажи отговора”, за да видите решението. Можете да използвате това, за да се упражнявате.</p>
     </div>
 
+    <div class="step app-window" style="opacity: 0;">
+      <div class="app-header">
+        <div>Уравнения!</div>
+        <div class="buttons">
+          <div class="circle-btn"></div>
+          <div class="circle-btn yellow"></div>
+          <div class="circle-btn green"></div>
+        </div>
+      </div>
+      <div class="app-content" id="equation-display">7x + 19 = -11</div>
+      <button class="app-button" onclick="generateEquation()">🎲 Генерирай уравнение</button>
+      <button class="app-button" style="margin-left:10px;" onclick="showAnswer()">Покажи отговора</button>
+      <div id="answer" style="margin-top: 15px; font-size: 1.2em; color: #e67e22;"></div>
+    </div>
+
     <div class="credits">
-      ⭐ <strong>Група 4 – Ясен Янакиев</strong> ⭐
+      ⭐ Създадено с гордост от <strong>Група 4 – Ясен Янакиев</strong> ⭐
     </div>
   </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      const appWindow = document.querySelector('.app-window');
+      setTimeout(() => {
+        appWindow.style.opacity = '1';
+      }, 2500);
+    });
+
+    const equationDisplay = document.getElementById('equation-display');
+    const answerDisplay = document.getElementById('answer');
+    let currentSolution = null;
+
+    function generateEquation() {
+      answerDisplay.textContent = '';
+      let a = Math.floor(Math.random() * 12) + 1;
+      let x = Math.floor(Math.random() * 21) - 10;
+      let b = Math.floor(Math.random() * 41) - 20;
+      let c = a * x + b;
+
+      let left = (a === 1) ? 'x' : `${a}x`;
+      if (b > 0) left += ` + ${b}`;
+      else if (b < 0) left += ` - ${Math.abs(b)}`;
+
+      equationDisplay.textContent = `${left} = ${c}`;
+      currentSolution = x;
+    }
+
+    function showAnswer() {
+      if (currentSolution === null) {
+        answerDisplay.textContent = 'Няма генерирано уравнение.';
+      } else {
+        answerDisplay.textContent = `x = ${currentSolution}`;
+      }
+    }
+
+    window.onload = generateEquation;
+  </script>
 </body>
 </html>
