@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Уравнения</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    #equation {
+      font-size: 32px;
+      margin: 20px 0;
+      color: #34495e;
+      font-weight: bold;
+    }
+    #solution {
+      font-size: 24px;
+      color: #27ae60;
+      margin-top: 15px;
+      display: none;
+    }
+    button {
+      font-size: 18px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      margin: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .gen-btn {
+      background-color: #2980b9;
+      color: white;
+    }
+    .gen-btn:hover {
+      background-color: #3498db;
+    }
+    .ans-btn {
+      background-color: #27ae60;
+      color: white;
+    }
+    .ans-btn:hover {
+      background-color: #2ecc71;
+    }
+    .code-btn {
+      background-color: #8e44ad;
+      color: white;
+    }
+    .code-btn:hover {
+      background-color: #9b59b6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Намерете x</h1>
+    <div id="equation">Натиснете бутона</div>
+    <div id="solution">x = ...</div>
+    <button class="gen-btn" onclick="generateEquation()">🎲 Генерирай уравнение</button>
+    <button class="ans-btn" onclick="showAnswer()">Покажи отговора</button>
+    <button class="code-btn" onclick="window.open('https://github.com/potatokingz/equations/blob/main/equations.py')">Виж кода</button>
+  </div>
+
+  <script>
+    let currentX = null;
+
+    function generateEquation() {
+      const a = Math.floor(Math.random() * 11) + 1;
+      const x = Math.floor(Math.random() * 21) - 10;
+      const b = Math.floor(Math.random() * 41) - 20;
+      const c = a * x + b;
+
+      let left = a === 1 ? "x" : `${a}x`;
+      if (b > 0) {
+        left += ` + ${b}`;
+      } else if (b < 0) {
+        left += ` - ${Math.abs(b)}`;
+      }
+
+      document.getElementById("equation").textContent = `${left} = ${c}`;
+      document.getElementById("solution").style.display = "none";
+      currentX = x;
+    }
+
+    function showAnswer() {
+      if (currentX !== null) {
+        document.getElementById("solution").textContent = `x = ${currentX}`;
+        document.getElementById("solution").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
