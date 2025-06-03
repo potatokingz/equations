@@ -1,112 +1,99 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Уравнения</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Инструкции за Уравнения!</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 600px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-    h1 {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #dff9fb, #c7ecee);
       color: #2c3e50;
-      margin-bottom: 10px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
-    #equation {
-      font-size: 32px;
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      color: #130f40;
+    }
+
+    .step {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
       margin: 20px 0;
-      color: #34495e;
-      font-weight: bold;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      animation: slideUp 1s ease forwards;
+      opacity: 0;
     }
-    #solution {
-      font-size: 24px;
-      color: #27ae60;
-      margin-top: 15px;
-      display: none;
-    }
-    button {
-      font-size: 18px;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 12px;
-      margin: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-    .gen-btn {
-      background-color: #2980b9;
+
+    .step:nth-child(2) { animation-delay: 0.5s; }
+    .step:nth-child(3) { animation-delay: 1s; }
+    .step:nth-child(4) { animation-delay: 1.5s; }
+
+    a.button {
+      display: inline-block;
+      background-color: #0984e3;
       color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 20px;
+      transition: background 0.3s ease;
     }
-    .gen-btn:hover {
-      background-color: #3498db;
+
+    a.button:hover {
+      background-color: #74b9ff;
     }
-    .ans-btn {
-      background-color: #27ae60;
-      color: white;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .ans-btn:hover {
-      background-color: #2ecc71;
-    }
-    .code-btn {
-      background-color: #8e44ad;
-      color: white;
-    }
-    .code-btn:hover {
-      background-color: #9b59b6;
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(40px); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Намерете x</h1>
-    <div id="equation">Натиснете бутона</div>
-    <div id="solution">x = ...</div>
-    <button class="gen-btn" onclick="generateEquation()">🎲 Генерирай уравнение</button>
-    <button class="ans-btn" onclick="showAnswer()">Покажи отговора</button>
-    <button class="code-btn" onclick="window.open('https://github.com/potatokingz/equations/blob/main/equations.py')">Виж кода</button>
+    <h1>Как да използвате "Уравнения!"</h1>
+
+    <div class="step">
+      <h2>1. Изтеглете програмата</h2>
+      <p>Кликнете върху бутона по-долу, за да изтеглите приложението:</p>
+      <a class="button" href="https://bit.ly/equationsDownload" target="_blank">⬇️ Изтегли Уравнения!</a>
+    </div>
+
+    <div class="step">
+      <h2>2. Стартирайте файла</h2>
+      <p>След като файлът се изтегли (например <strong>Equations.exe</strong>), кликнете два пъти върху него, за да го отворите.</p>
+      <p>Ако Windows ви попита дали се доверявате – потвърдете с "Yes".</p>
+    </div>
+
+    <div class="step">
+      <h2>3. Генерирайте уравнения</h2>
+      <p>Програмата ще се отвори с голям син бутон "🎲 Генерирай уравнение". Кликнете го, за да получите нова задача.</p>
+      <p>Под уравнението ще видите “Намерете x”. Решете го, като внимаваш с математиката!</p>
+    </div>
+
+    <div class="step">
+      <h2>4. Покажи отговора</h2>
+      <p>Кликнете на “Покажи отговора”, за да видите решението. Можете да използвате това, за да се упражнявате.</p>
+    </div>
   </div>
-
-  <script>
-    let currentX = null;
-
-    function generateEquation() {
-      const a = Math.floor(Math.random() * 11) + 1;
-      const x = Math.floor(Math.random() * 21) - 10;
-      const b = Math.floor(Math.random() * 41) - 20;
-      const c = a * x + b;
-
-      let left = a === 1 ? "x" : `${a}x`;
-      if (b > 0) {
-        left += ` + ${b}`;
-      } else if (b < 0) {
-        left += ` - ${Math.abs(b)}`;
-      }
-
-      document.getElementById("equation").textContent = `${left} = ${c}`;
-      document.getElementById("solution").style.display = "none";
-      currentX = x;
-    }
-
-    function showAnswer() {
-      if (currentX !== null) {
-        document.getElementById("solution").textContent = `x = ${currentX}`;
-        document.getElementById("solution").style.display = "block";
-      }
-    }
-  </script>
 </body>
 </html>
