@@ -124,7 +124,7 @@ class EasyLinearEquationGenerator(QWidget):
             self.answer_label.setText(f"x = {self.current_solution}")
 
     def open_code_link(self):
-        url = "website"
+        url = "https://github.com/potatokingz/equasions/blob/main/equasions.py"
         webbrowser.open(url)
 
 if __name__ == "__main__":
