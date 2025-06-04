@@ -36,11 +36,11 @@
     .button {
       background-color: #3b82f6;
       color: white;
-      padding: 1rem 2rem;
+      padding: 1.2rem 2.5rem;
       margin: 1rem;
       border: none;
       border-radius: 12px;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -57,7 +57,8 @@
       border-radius: 1rem;
       padding: 2rem;
       box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      max-width: 600px;
+      max-width: 700px;
+      width: 100%;
       animation: slideUp 0.6s ease-out;
     }
     @keyframes slideUp {
@@ -75,6 +76,19 @@
       margin-top: 1.5rem;
       background-color: #94a3b8;
     }
+    #equationOutput {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #34495e;
+      margin: 20px 0;
+      text-align: center;
+    }
+    #equationAnswer {
+      font-size: 1.3rem;
+      color: #27ae60;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
@@ -82,12 +96,17 @@
   <div class="container" id="mainMenu" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
     <button class="button" onclick="showSection('equation')">🧮 Генератор на уравнения</button>
     <button class="button" onclick="showSection('labcoin')">💰 Labcoin Играта</button>
-    <button class="button" onclick="window.open('https://github.com/potatokingz/equations','_blank')">🧠 Вижте Кода</button>
   </div>
 
   <div class="card" id="equation">
     <h2>🧮 Генератор на уравнения</h2>
-    <p>Тук ще бъде вграден генератор на уравнения.</p>
+    <p id="equationInstruction" style="text-align:center; color:#7f8c8d;">Намерете x</p>
+    <div id="equationOutput">Натиснете бутона долу</div>
+    <div id="equationAnswer"></div>
+    <div style="display:flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <button class="button" onclick="generateEquation()">🎲 Генерирай уравнение</button>
+      <button class="button" onclick="showAnswer()">Покажи отговора</button>
+    </div>
     <button class="button back" onclick="goBack()">⬅ Назад</button>
   </div>
 
@@ -101,22 +120,43 @@
     <p><strong>2. Кой печели?</strong><br>
       - Отборът, който пръв намери уравнение, което е равно на <strong>14</strong>, печели!
     </p>
-    <br>
-    <p><strong>3. Вижте кода:</strong><br>
-      <a href="https://github.com/potatokingz/equations" target="_blank">GitHub Repository</a>
-    </p>
     <button class="button back" onclick="goBack()">⬅ Назад</button>
   </div>
 
   <script>
+    let currentSolution = null;
+
     function showSection(id) {
       document.getElementById('mainMenu').style.display = 'none';
       document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
       document.getElementById(id).style.display = 'block';
     }
+
     function goBack() {
       document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
       document.getElementById('mainMenu').style.display = 'flex';
+    }
+
+    function generateEquation() {
+      const a = Math.floor(Math.random() * 12) + 1;
+      const x = Math.floor(Math.random() * 21) - 10;
+      const b = Math.floor(Math.random() * 41) - 20;
+      const c = a * x + b;
+
+      let left = a === 1 ? "x" : `${a}x`;
+      if (b > 0) left += ` + ${b}`;
+      else if (b < 0) left += ` - ${Math.abs(b)}`;
+
+      const equation = `${left} = ${c}`;
+      document.getElementById("equationOutput").innerText = equation;
+      document.getElementById("equationAnswer").innerText = "";
+      currentSolution = x;
+    }
+
+    function showAnswer() {
+      if (currentSolution !== null) {
+        document.getElementById("equationAnswer").innerText = `x = ${currentSolution}`;
+      }
     }
   </script>
 </body>
