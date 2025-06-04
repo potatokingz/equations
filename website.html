@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Здравейте!!! ( Група 4 - Задачи и Направление )</title>
+  <title>Уравнения</title>
+  <link rel="icon" href="https://i.ibb.co/M5JCcfSz/image-removebg-preview-16.png">
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -89,6 +90,13 @@
       text-align: center;
       margin-bottom: 1.5rem;
     }
+    #codeNotice {
+      font-size: 1rem;
+      color: #1e293b;
+      text-align: center;
+      margin-top: 0.5rem;
+      animation: fadeIn 0.6s ease-in;
+    }
   </style>
 </head>
 <body>
@@ -96,7 +104,8 @@
   <div class="container" id="mainMenu" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
     <button class="button" onclick="showSection('equation')">🧮 Генератор на уравнения</button>
     <button class="button" onclick="showSection('labcoin')">💰 Labcoin Играта</button>
-    <a href="https://github.com/potatokingz/equations/tree/main" target="_blank"><button class="button">📂 Виж Кода</button></a>
+    <button class="button" onclick="openCode()">📂 Виж Кода</button>
+    <div id="codeNotice"></div>
   </div>
 
   <div class="card" id="equation">
@@ -139,9 +148,9 @@
     }
 
     function generateEquation() {
-      const a = Math.floor(Math.random() * 12) + 1;
       const x = Math.floor(Math.random() * 21) - 10;
-      const b = Math.floor(Math.random() * 41) - 20;
+      const a = Math.floor(Math.random() * 10) + 1;
+      const b = Math.floor(Math.random() * 21) - 10;
       const c = a * x + b;
 
       let left = a === 1 ? "x" : `${a}x`;
@@ -158,6 +167,15 @@
       if (currentSolution !== null) {
         document.getElementById("equationAnswer").innerText = `x = ${currentSolution}`;
       }
+    }
+
+    function openCode() {
+      const notice = document.getElementById("codeNotice");
+      notice.innerText = "🔗 Всеки момент ще се отвори линк към GitHub...";
+      setTimeout(() => {
+        window.open("https://github.com/potatokingz/equations/tree/main", "_blank");
+        notice.innerText = "";
+      }, 1200);
     }
   </script>
 </body>
