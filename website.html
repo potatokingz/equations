@@ -49,11 +49,8 @@
       background-color: #2563eb;
       transform: scale(1.05);
     }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
+    .container, .card {
+      display: none;
     }
     .card {
       background: white;
@@ -74,14 +71,24 @@
     a:hover {
       text-decoration: underline;
     }
+    .back {
+      margin-top: 1.5rem;
+      background-color: #94a3b8;
+    }
   </style>
 </head>
 <body>
   <h1>Здравейте!!! ( Група 4 - Задачи и Направление )</h1>
-  <div class="container">
-    <button class="button" onclick="location.href='equations.html'">🧮 Генератор на уравнения</button>
-    <button class="button" onclick="document.getElementById('labcoin').scrollIntoView({behavior: 'smooth'})">💰 Labcoin Играта</button>
+  <div class="container" id="mainMenu" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+    <button class="button" onclick="showSection('equation')">🧮 Генератор на уравнения</button>
+    <button class="button" onclick="showSection('labcoin')">💰 Labcoin Играта</button>
     <button class="button" onclick="window.open('https://github.com/potatokingz/equations','_blank')">🧠 Вижте Кода</button>
+  </div>
+
+  <div class="card" id="equation">
+    <h2>🧮 Генератор на уравнения</h2>
+    <p>Тук ще бъде вграден генератор на уравнения.</p>
+    <button class="button back" onclick="goBack()">⬅ Назад</button>
   </div>
 
   <div class="card" id="labcoin">
@@ -98,6 +105,19 @@
     <p><strong>3. Вижте кода:</strong><br>
       <a href="https://github.com/potatokingz/equations" target="_blank">GitHub Repository</a>
     </p>
+    <button class="button back" onclick="goBack()">⬅ Назад</button>
   </div>
+
+  <script>
+    function showSection(id) {
+      document.getElementById('mainMenu').style.display = 'none';
+      document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+    function goBack() {
+      document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
+      document.getElementById('mainMenu').style.display = 'flex';
+    }
+  </script>
 </body>
 </html>
