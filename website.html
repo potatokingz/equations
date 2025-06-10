@@ -145,50 +145,31 @@
       margin-top: 1.1rem;
       animation: fadeIn 0.6s ease-in;
     }
-    .points-table {
+    /* Teams table styling */
+    .teams-table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5rem 0;
     }
-    .points-table th, .points-table td {
+    .teams-table th, .teams-table td {
       border: 1px solid #e5e7eb;
       padding: 1rem 0.8rem;
       text-align: left;
-      font-size: 1.4rem;
+      font-size: 1.25rem;
     }
-    .points-table th {
-      background: #3b82f6;
+    .teams-table th {
+      background: #38bdf8;
       color: #fff;
       font-weight: 700;
       border-radius: 0.6rem 0.6rem 0 0;
       letter-spacing: 1px;
     }
-    .points-table td {
-      background: #f3f4f6;
+    .teams-table td {
+      background: #e0f2fe;
     }
-    .points-table button {
-      background: #10b981;
-      color: #fff;
-      border: none;
-      border-radius: 0.7rem;
-      padding: 0.35rem 1.15rem;
-      font-size: 1.4rem;
+    .teams-table td.team-name {
       font-weight: 700;
-      cursor: pointer;
-      margin-right: 0.5rem;
-      transition: background 0.18s;
-    }
-    .points-table button.decrement {
-      background: #ef4444;
-    }
-    .points-table button:hover {
-      filter: brightness(1.18);
-      transform: scale(1.08);
-    }
-    .points-table td.name {
-      font-weight: 600;
       color: #2563eb;
-      font-size: 1.3rem;
     }
 
     @media (max-width: 700px) {
@@ -196,7 +177,7 @@
       .button { padding: 1.15rem 0.7rem; font-size: 1.2rem; }
       .card { padding: 1.2rem; }
       #equationOutput { font-size: 1.1rem; }
-      .points-table th, .points-table td { font-size: 1.05rem; padding: 0.4rem 0.4rem; }
+      .teams-table th, .teams-table td { font-size: 1rem; padding: 0.4rem 0.4rem; }
     }
   </style>
 </head>
@@ -206,7 +187,7 @@
   <div class="container" id="mainMenu" style="display: flex; flex-direction: column; align-items: center; gap: 1.7rem;">
     <button class="button" onclick="showSection('equation')"><span>🧮 Генератор на уравнения</span></button>
     <button class="button" onclick="showSection('labcoin')"><span>💰 Играта</span></button>
-    <button class="button" onclick="showSection('nagradi')"><span>❓ Награди</span></button>
+    <button class="button" onclick="showSection('teams')"><span>👥 Отбори</span></button>
     <div id="codeNotice"></div>
   </div>
 
@@ -228,9 +209,8 @@
   <div class="card" id="labcoin">
     <h2 style="margin-bottom: 1rem;">💰 Играта</h2>
     <p><strong>1. Как се играе?</strong><br>
-      - Преди началото на часа лисчета ще бъдат скрити в стаята.<br>
-      - Върху всяко лисче има уравнение.<br>
-      - Листчето ще е във ярък цвят, за да се вижда.
+      - Преди началото на часа лабкойни ще бъдат скрити в стаята.<br>
+      - Върху всеки лабкойн има уравнение.
     </p>
     <br>
     <p><strong>2. Кой печели?</strong><br>
@@ -243,25 +223,50 @@
     <button class="button back" onclick="goBack()"><span>⬅ Назад</span></button>
   </div>
 
-  <div class="card" id="nagradi">
-    <h2 style="margin-bottom: 1rem;">❓ Награди: Точки</h2>
-    <p style="text-align:center; color:#f59e42; font-weight:700; margin-bottom:1rem;">
-      Добавяйте или премахвайте точки за всеки!
-    </p>
-    <table class="points-table" id="pointsTable">
-      <thead>
-        <tr>
-          <th>Име</th>
-          <th>Точки</th>
-          <th>Действия</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Filled by JS -->
-      </tbody>
-    </table>
+  <!-- Teams section -->
+  <div class="card" id="teams">
+    <h2 style="margin-bottom: 1rem;">👥 Отбори</h2>
+    <div style="margin-bottom: 1.5rem;">
+      <table class="teams-table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Име на отбор</th>
+            <th>Ученици</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="team-name">Рационални Числа</td>
+            <td>Виктор, Кристиян, Никола, Лили</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="team-name">Пропорций</td>
+            <td>Лиана, Ема А, Кристин, Дуа, Радослав</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="team-name">Степени</td>
+            <td>Слав, Йоанна Крумова, Лора, Божи, Андрей</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="team-name">Геометрични Тела</td>
+            <td>Карина, Ема Паунова, Николай</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="team-name">Геометрични Фигури</td>
+            <td>Калоян, Неда, Исабел</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <button class="button back" onclick="goBack()"><span>⬅ Назад</span></button>
   </div>
+  <!-- End Teams section -->
 
   <script>
     let currentSolution = null;
@@ -270,7 +275,6 @@
       document.getElementById('mainMenu').style.display = 'none';
       document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
       document.getElementById(id).style.display = 'block';
-      if(id === 'nagradi') renderPointsTable();
     }
 
     function goBack() {
@@ -299,81 +303,6 @@
         document.getElementById("equationAnswer").innerText = `x = ${currentSolution}`;
       }
     }
-
-    // --- Points System ---
-    const people = [
-      "Алекс Василев",
-      "Андрей",
-      "Божидара",
-      "Боян",
-      "Виктор",
-      "Дуа Юмерова",
-      "Ема Атанасова",
-      "Ема Паунова",
-      "Йоанна Крумова",
-      "Йоанна Нейкова",
-      "Исабел",
-      "Ирина",
-      "Калоян",
-      "Карина",
-      "Кристин",
-      "Кристиян Крилчев",
-      "Кристиана",
-      "Лиана",
-      "Лилия",
-      "Лора",
-      "Мартин",
-      "Митко",
-      "Неда",
-      "Никола",
-      "Николай",
-      "Радослав",
-      "Слав",
-      "Яна",
-      "Ясен"
-    ];
-
-    // Try to persist scores in localStorage
-    function getPoints() {
-      let points = {};
-      try {
-        points = JSON.parse(localStorage.getItem('points4group')) || {};
-      } catch { points = {}; }
-      people.forEach(name => {
-        if (!(name in points)) points[name] = 0;
-      });
-      return points;
-    }
-
-    function savePoints(points) {
-      localStorage.setItem('points4group', JSON.stringify(points));
-    }
-
-    function renderPointsTable() {
-      const points = getPoints();
-      const tbody = document.querySelector("#pointsTable tbody");
-      tbody.innerHTML = '';
-      people.forEach(name => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="name">${name}</td>
-          <td id="points-${name}">${points[name]}</td>
-          <td>
-            <button onclick="changePoints('${name}',1)">+</button>
-            <button class="decrement" onclick="changePoints('${name}',-1)">-</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Expose for inline onclick
-    window.changePoints = function(name, delta) {
-      const points = getPoints();
-      points[name] += delta;
-      savePoints(points);
-      document.getElementById("points-" + name).innerText = points[name];
-    };
   </script>
 </body>
 </html>
