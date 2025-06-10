@@ -29,34 +29,71 @@
       to { opacity: 1; transform: translateY(0); }
     }
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
       color: #0f172a;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 24px #60a5fa44, 0 2px 8px #38bdf8aa;
     }
     .button {
-      background-color: #3b82f6;
-      color: white;
-      padding: 1.2rem 2.5rem;
-      margin: 1rem;
+      background: linear-gradient(90deg, #3b82f6 0%, #38bdf8 100%);
+      color: #fff;
+      padding: 2.4rem 5rem;
+      margin: 1.7rem 0;
       border: none;
-      border-radius: 12px;
-      font-size: 1.3rem;
+      border-radius: 2.5rem;
+      font-size: 2.3rem;
+      font-weight: 800;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.23s cubic-bezier(.08,.82,.17,1.1);
+      box-shadow:
+        0 10px 32px 0 rgba(59,130,246,0.19),
+        0 2.5px 10px 0 rgba(59,130,246,0.14),
+        0 1px 3px 0 rgba(59,130,246,0.07);
+      outline: none;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      letter-spacing: 1.5px;
+    }
+    .button::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, #a5f3fc88 0%, #38bdf899 100%);
+      opacity: 0.7;
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width 0.36s, height 0.36s;
+      z-index: 0;
     }
     .button:hover {
-      background-color: #2563eb;
-      transform: scale(1.05);
+      background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+      transform: scale(1.10) rotate(-1.5deg);
+      box-shadow:
+        0 20px 60px 0 rgba(59,130,246,0.23),
+        0 5px 14px 0 rgba(59,130,246,0.17);
+    }
+    .button:hover::before {
+      width: 330%;
+      height: 1050%;
+    }
+    .button span {
+      position: relative;
+      z-index: 2;
+      font-family: inherit;
     }
     .card {
       display: none;
       background: white;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      max-width: 700px;
+      border-radius: 2rem;
+      padding: 2.7rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.14);
+      max-width: 720px;
       width: 100%;
       animation: slideUp 0.6s ease-out;
     }
@@ -72,56 +109,122 @@
       text-decoration: underline;
     }
     .back {
-      margin-top: 1.5rem;
-      background-color: #94a3b8;
+      margin-top: 2.3rem;
+      background: linear-gradient(90deg,#94a3b8 0%, #cbd5e1 100%);
+      color: #1e293b;
+      font-size: 1.6rem;
+      font-weight: 700;
+      border-radius: 2.2rem;
+      box-shadow: 0 8px 24px 0 rgba(156,163,175,0.18);
+    }
+    .back:hover {
+      background: linear-gradient(90deg,#64748b 0%, #94a3b8 100%);
+      color: #f1f5f9;
+      transform: scale(1.05) rotate(1deg);
     }
     #equationOutput {
-      font-size: 1.8rem;
+      font-size: 2.5rem;
       font-weight: bold;
       color: #34495e;
-      margin: 20px 0;
+      margin: 24px 0;
       text-align: center;
+      letter-spacing: 2.5px;
+      text-shadow: 0 3px 12px #38bdf844;
     }
     #equationAnswer {
-      font-size: 1.3rem;
+      font-size: 1.7rem;
       color: #27ae60;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.1rem;
+      font-weight: 700;
     }
     #codeNotice {
-      font-size: 1rem;
+      font-size: 1.25rem;
       color: #1e293b;
       text-align: center;
-      margin-top: 0.5rem;
+      margin-top: 1.1rem;
       animation: fadeIn 0.6s ease-in;
+    }
+    .points-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .points-table th, .points-table td {
+      border: 1px solid #e5e7eb;
+      padding: 1rem 0.8rem;
+      text-align: left;
+      font-size: 1.4rem;
+    }
+    .points-table th {
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 0.6rem 0.6rem 0 0;
+      letter-spacing: 1px;
+    }
+    .points-table td {
+      background: #f3f4f6;
+    }
+    .points-table button {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      border-radius: 0.7rem;
+      padding: 0.35rem 1.15rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      transition: background 0.18s;
+    }
+    .points-table button.decrement {
+      background: #ef4444;
+    }
+    .points-table button:hover {
+      filter: brightness(1.18);
+      transform: scale(1.08);
+    }
+    .points-table td.name {
+      font-weight: 600;
+      color: #2563eb;
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 1.3rem; }
+      .button { padding: 1.15rem 0.7rem; font-size: 1.2rem; }
+      .card { padding: 1.2rem; }
+      #equationOutput { font-size: 1.1rem; }
+      .points-table th, .points-table td { font-size: 1.05rem; padding: 0.4rem 0.4rem; }
     }
   </style>
 </head>
 <body>
   <h1>Здравейте!!! ( Група 4 - Задачи и Направление )</h1>
 
-  <div class="container" id="mainMenu" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-    <button class="button" onclick="showSection('equation')">🧮 Генератор на уравнения</button>
-    <button class="button" onclick="showSection('labcoin')">💰 Играта</button>
-    <button class="button" onclick="openCode()">📂 Виж Кода</button>
+  <div class="container" id="mainMenu" style="display: flex; flex-direction: column; align-items: center; gap: 1.7rem;">
+    <button class="button" onclick="showSection('equation')"><span>🧮 Генератор на уравнения</span></button>
+    <button class="button" onclick="showSection('labcoin')"><span>💰 Играта</span></button>
+    <button class="button" onclick="showSection('nagradi')"><span>❓ Награди</span></button>
     <div id="codeNotice"></div>
   </div>
 
   <div class="card" id="equation">
-  <h2>🧮 Генератор на уравнения</h2>
-  <!-- Warm up label added -->
-  <p style="text-align:center; color:#f59e42; font-weight:700; margin-bottom:0.7rem;">
-    Това е за загрявка
-  </p>
-  <p id="equationInstruction" style="text-align:center; color:#7f8c8d;">Намерете x</p>
-  <div id="equationOutput">Натиснете бутона долу</div>
-  <div id="equationAnswer"></div>
-  <div style="display:flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-    <button class="button" onclick="generateEquation()">🎲 Генерирай уравнение</button>
-    <button class="button" onclick="showAnswer()">Покажи отговора</button>
+    <h2>🧮 Генератор на уравнения</h2>
+    <p style="text-align:center; color:#f59e42; font-weight:700; margin-bottom:0.7rem;">
+      Това е за загрявка
+    </p>
+    <p id="equationInstruction" style="text-align:center; color:#7f8c8d;">Намерете x</p>
+    <div id="equationOutput">Натиснете бутона долу</div>
+    <div id="equationAnswer"></div>
+    <div style="display:flex; justify-content: center; gap: 2.2rem; flex-wrap: wrap;">
+      <button class="button" onclick="generateEquation()"><span>🎲 Генерирай уравнение</span></button>
+      <button class="button" onclick="showAnswer()"><span>Покажи отговора</span></button>
+    </div>
+    <button class="button back" onclick="goBack()"><span>⬅ Назад</span></button>
   </div>
-  <button class="button back" onclick="goBack()">⬅ Назад</button>
-</div>
+
   <div class="card" id="labcoin">
     <h2 style="margin-bottom: 1rem;">💰 Играта</h2>
     <p><strong>1. Как се играе?</strong><br>
@@ -137,7 +240,27 @@
     <p><strong>3. Важно</strong><br>
       - Не правим шум и <strong>учителите</strong> са хора!
     </p>
-    <button class="button back" onclick="goBack()">⬅ Назад</button>
+    <button class="button back" onclick="goBack()"><span>⬅ Назад</span></button>
+  </div>
+
+  <div class="card" id="nagradi">
+    <h2 style="margin-bottom: 1rem;">❓ Награди: Точки</h2>
+    <p style="text-align:center; color:#f59e42; font-weight:700; margin-bottom:1rem;">
+      Добавяйте или премахвайте точки за всеки!
+    </p>
+    <table class="points-table" id="pointsTable">
+      <thead>
+        <tr>
+          <th>Име</th>
+          <th>Точки</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filled by JS -->
+      </tbody>
+    </table>
+    <button class="button back" onclick="goBack()"><span>⬅ Назад</span></button>
   </div>
 
   <script>
@@ -147,6 +270,7 @@
       document.getElementById('mainMenu').style.display = 'none';
       document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
       document.getElementById(id).style.display = 'block';
+      if(id === 'nagradi') renderPointsTable();
     }
 
     function goBack() {
@@ -176,14 +300,80 @@
       }
     }
 
-    function openCode() {
-      const notice = document.getElementById("codeNotice");
-      notice.innerText = "🔗 Всеки момент ще се отвори линк към GitHub...";
-      setTimeout(() => {
-        window.open("https://github.com/potatokingz/equations/tree/main", "_blank");
-        notice.innerText = "";
-      }, 1200);
+    // --- Points System ---
+    const people = [
+      "Алекс Василев",
+      "Андрей",
+      "Божидара",
+      "Боян",
+      "Виктор",
+      "Дуа Юмерова",
+      "Ема Атанасова",
+      "Ема Паунова",
+      "Йоанна Крумова",
+      "Йоанна Нейкова",
+      "Исабел",
+      "Ирина",
+      "Калоян",
+      "Карина",
+      "Кристин",
+      "Кристиян Крилчев",
+      "Кристиана",
+      "Лиана",
+      "Лилия",
+      "Лора",
+      "Мартин",
+      "Митко",
+      "Неда",
+      "Никола",
+      "Николай",
+      "Радослав",
+      "Слав",
+      "Яна",
+      "Ясен"
+    ];
+
+    // Try to persist scores in localStorage
+    function getPoints() {
+      let points = {};
+      try {
+        points = JSON.parse(localStorage.getItem('points4group')) || {};
+      } catch { points = {}; }
+      people.forEach(name => {
+        if (!(name in points)) points[name] = 0;
+      });
+      return points;
     }
+
+    function savePoints(points) {
+      localStorage.setItem('points4group', JSON.stringify(points));
+    }
+
+    function renderPointsTable() {
+      const points = getPoints();
+      const tbody = document.querySelector("#pointsTable tbody");
+      tbody.innerHTML = '';
+      people.forEach(name => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="name">${name}</td>
+          <td id="points-${name}">${points[name]}</td>
+          <td>
+            <button onclick="changePoints('${name}',1)">+</button>
+            <button class="decrement" onclick="changePoints('${name}',-1)">-</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Expose for inline onclick
+    window.changePoints = function(name, delta) {
+      const points = getPoints();
+      points[name] += delta;
+      savePoints(points);
+      document.getElementById("points-" + name).innerText = points[name];
+    };
   </script>
 </body>
 </html>
